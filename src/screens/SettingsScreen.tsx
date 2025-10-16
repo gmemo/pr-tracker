@@ -478,17 +478,17 @@ export default function SettingsScreen() {
             </View>
             
             <View style={styles.donationButtons}>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={[styles.donationButton, { backgroundColor: '#FF5E5B' }]}
-                onPress={() => openLink('https://ko-fi.com/tuusuario')}
+                onPress={() => openLink('https://ko-fi.com/U7U41MX9IQ')}
               >
                 <Ionicons name="heart" size={20} color="#FFFFFF" />
                 <Text style={styles.donationButtonText}>Apoyar en Ko-fi</Text>
               </TouchableOpacity>
-              
-              <TouchableOpacity 
+
+              <TouchableOpacity
                 style={[styles.donationButton, { backgroundColor: '#0070BA' }]}
-                onPress={() => openLink('https://paypal.me/tuusuario')}
+                onPress={() => openLink('https://www.paypal.com/paypalme/GuillermoSerrano775')}
               >
                 <Ionicons name="logo-paypal" size={20} color="#FFFFFF" />
                 <Text style={styles.donationButtonText}>Donar por PayPal</Text>
