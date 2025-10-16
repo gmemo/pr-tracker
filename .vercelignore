@@ -1,0 +1,12 @@
+node_modules
+.expo
+.expo-shared
+*.log
+.DS_Store
+.git
+ios
+android
+Dockerfile
+docker-compose.yml
+nginx.conf
+.dockerignore

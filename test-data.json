@@ -1,0 +1,186 @@
+{
+  "version": "1.0.0",
+  "lastSync": "2025-07-04T15:30:00.000Z",
+  "exercises": [
+    {
+      "id": "1",
+      "name": "Back Squat",
+      "category": "barbell",
+      "barType": "standard",
+      "barWeight": 45,
+      "currentPR": 315,
+      "currentPRPlates": 270,
+      "unit": "lbs",
+      "notes": "Depth to parallel, controlled descent"
+    },
+    {
+      "id": "2",
+      "name": "Deadlift",
+      "category": "barbell",
+      "barType": "standard",
+      "barWeight": 45,
+      "currentPR": 405,
+      "currentPRPlates": 360,
+      "unit": "lbs",
+      "notes": "Conventional stance, mixed grip"
+    },
+    {
+      "id": "3",
+      "name": "Bench Press",
+      "category": "barbell",
+      "barType": "standard",
+      "barWeight": 45,
+      "currentPR": 225,
+      "currentPRPlates": 180,
+      "unit": "lbs",
+      "notes": "Paused at chest"
+    },
+    {
+      "id": "4",
+      "name": "Overhead Press",
+      "category": "barbell",
+      "barType": "standard",
+      "barWeight": 45,
+      "currentPR": 155,
+      "currentPRPlates": 110,
+      "unit": "lbs",
+      "notes": "Strict press, no leg drive"
+    },
+    {
+      "id": "5",
+      "name": "Pull-ups",
+      "category": "bodyweight",
+      "currentPR": 25,
+      "unit": "reps",
+      "notes": "Strict, chin over bar"
+    },
+    {
+      "id": "6",
+      "name": "Front Squat",
+      "category": "barbell",
+      "barType": "standard",
+      "barWeight": 45,
+      "currentPR": 245,
+      "currentPRPlates": 200,
+      "unit": "lbs",
+      "notes": "Clean grip, elbows high"
+    },
+    {
+      "id": "7",
+      "name": "Thruster",
+      "category": "barbell",
+      "barType": "standard",
+      "barWeight": 45,
+      "currentPR": 185,
+      "currentPRPlates": 140,
+      "unit": "lbs",
+      "notes": "Full squat to overhead"
+    },
+    {
+      "id": "8",
+      "name": "5K Run",
+      "category": "cardio",
+      "currentPR": 22.5,
+      "unit": "time",
+      "notes": "22:30 - outdoor track"
+    }
+  ],
+  "prRecords": [
+    {
+      "id": "1",
+      "exerciseId": "1",
+      "value": 315,
+      "platesWeight": 270,
+      "barType": "standard",
+      "date": "2025-07-01T10:00:00.000Z",
+      "notes": "New PR! Felt strong today"
+    },
+    {
+      "id": "2",
+      "exerciseId": "1",
+      "value": 305,
+      "platesWeight": 260,
+      "barType": "standard",
+      "date": "2025-06-25T10:00:00.000Z",
+      "notes": "Previous best"
+    },
+    {
+      "id": "3",
+      "exerciseId": "2",
+      "value": 405,
+      "platesWeight": 360,
+      "barType": "standard",
+      "date": "2025-06-30T09:30:00.000Z",
+      "notes": "4 plates! Finally hit it"
+    },
+    {
+      "id": "4",
+      "exerciseId": "2",
+      "value": 385,
+      "platesWeight": 340,
+      "barType": "standard",
+      "date": "2025-06-20T09:30:00.000Z",
+      "notes": "Getting close to 4 plates"
+    },
+    {
+      "id": "5",
+      "exerciseId": "3",
+      "value": 225,
+      "platesWeight": 180,
+      "barType": "standard",
+      "date": "2025-06-28T11:00:00.000Z",
+      "notes": "2 plates bench press!"
+    },
+    {
+      "id": "6",
+      "exerciseId": "4",
+      "value": 155,
+      "platesWeight": 110,
+      "barType": "standard",
+      "date": "2025-06-26T10:30:00.000Z",
+      "notes": "Overhead press PR"
+    },
+    {
+      "id": "7",
+      "exerciseId": "5",
+      "value": 25,
+      "date": "2025-06-24T16:00:00.000Z",
+      "notes": "25 strict pull-ups unbroken"
+    },
+    {
+      "id": "8",
+      "exerciseId": "6",
+      "value": 245,
+      "platesWeight": 200,
+      "barType": "standard",
+      "date": "2025-06-22T10:00:00.000Z",
+      "notes": "Front squat feeling good"
+    },
+    {
+      "id": "9",
+      "exerciseId": "7",
+      "value": 185,
+      "platesWeight": 140,
+      "barType": "standard",
+      "date": "2025-06-20T15:00:00.000Z",
+      "notes": "Grace WOD - 30 thrusters for time"
+    },
+    {
+      "id": "10",
+      "exerciseId": "8",
+      "value": 22.5,
+      "date": "2025-06-18T07:00:00.000Z",
+      "notes": "Morning run, perfect weather"
+    }
+  ],
+  "preferences": {
+    "defaultUnit": "lbs",
+    "defaultBarType": "standard",
+    "themeColor": "green",
+    "lastSyncDate": "2025-07-04T15:30:00.000Z"
+  },
+  "stats": {
+    "totalPRs": 10,
+    "lastPRDate": "2025-07-01T10:00:00.000Z"
+  }
+}

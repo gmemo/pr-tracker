@@ -1,0 +1,567 @@
+# NEXT STEPS & FUTURE DEVELOPMENT
+
+## 📖 FOR FUTURE CLAUDE SESSIONS
+
+**IMPORTANT**: When starting a new Claude Code session and continuing this project:
+
+1. **Share this file first**: Upload or reference NEXT_STEPS.txt so Claude has full context
+2. **Also share**: README.md, DEPLOYMENT.md, and CLAUDE.md for complete understanding
+3. **Quick summary**: "This is a React Native/Expo CrossFit PR tracker PWA. See NEXT_STEPS.txt for full context."
+
+**Current State** (as of 2025-10-16):
+- ✅ PWA fully functional and deployed
+- ✅ Docker container running on localhost:3000
+- ✅ Vercel config ready for deployment
+- ✅ All core features complete (v1.0.0)
+- 🚀 Ready for: Vercel deploy, Android build, iOS build (when funded)
+
+**What to do first in new session:**
+```bash
+# Check current state
+npm run web                    # Start dev server
+docker compose ps              # Check if container is running
+git status                     # See what's uncommitted
+```
+
+---
+
+## 🧹 PROJECT CLEANUP NEEDED
+
+**BEFORE PUSHING TO GITHUB**: Clean up old iOS/Android build artifacts and trash from previous development attempts.
+
+### Files/Folders to Remove:
+
+```bash
+# Check what's in your project (look for old build folders)
+ls -la
+
+# Common trash from iOS/Android attempts:
+rm -rf ios/build
+rm -rf android/app/build
+rm -rf android/.gradle
+rm -rf .expo-shared
+rm -rf .expo
+rm -rf node_modules/.cache
+
+# Old Xcode/build artifacts (if exist)
+rm -rf ~/Library/Developer/Xcode/DerivedData/crossfit-*
+rm -rf *.xcworkspace
+rm -rf Pods/
+
+# Clean npm cache if needed
+npm cache clean --force
+
+# Reinstall clean dependencies
+rm -rf node_modules
+npm install
+```
+
+### Recommended .gitignore Additions:
+
+Add to `.gitignore` if not already there:
+```
+# Builds
+ios/build/
+android/app/build/
+android/.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Expo
+.expo/
+.expo-shared/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+```
+
+### Clean Build Process:
+
+```bash
+# 1. Clean everything
+rm -rf node_modules
+rm -rf .expo
+rm -rf dist
+
+# 2. Fresh install
+npm install
+
+# 3. Fresh build
+npx expo export --platform web
+
+# 4. Test Docker build
+docker build -t pr-tracker .
+docker compose up -d
+
+# 5. Verify at http://localhost:3000
+```
+
+---
+
+## ✅ COMPLETED (Current Version 1.0.0)
+
+### Core Functionality
+- [x] Exercise management (CRUD operations)
+- [x] PR tracking with historical records
+- [x] Barbell plate calculator (45lb, 35lb bars)
+- [x] Percentage-based training calculations (70%, 80%, 90%)
+- [x] Export/Import functionality (JSON backup/restore)
+- [x] Dark/Light theme with 5 accent colors
+- [x] Multiple unit support (lbs, kg, reps, time)
+- [x] Offline-first architecture
+- [x] PWA support with service worker
+- [x] Welcome screen for first-time users
+- [x] Empty states for all screens
+- [x] Loading indicators on import/export
+- [x] Import validation with user-friendly errors
+- [x] Responsive UI optimized for small screens (iPhone 13 Mini)
+- [x] Cross-platform compatibility (Web, iOS, Android ready)
+
+### Technical Implementation
+- [x] React Native with Expo SDK 53
+- [x] TypeScript for type safety
+- [x] AsyncStorage for local data persistence
+- [x] React Context for state management
+- [x] React Navigation with custom headers
+- [x] Platform-specific rendering (web vs native)
+- [x] Docker containerization
+- [x] Vercel deployment configuration
+
+---
+
+## 🚀 UPCOMING FEATURES (Próximamente)
+
+### Priority 1: Training Features
+- [ ] **Workout Builder (WOD Creator)**
+  - Create custom workouts using your exercises
+  - Use percentage-based loading (e.g., "Back Squat 5x5 @ 70%")
+  - Save and reuse workout templates
+  - Track workout completion dates
+
+- [ ] **Smart Timer**
+  - Rest timer between sets
+  - EMOM (Every Minute On the Minute)
+  - AMRAP (As Many Reps As Possible)
+  - Tabata intervals (20s work, 10s rest)
+  - Custom interval configurations
+
+- [ ] **Workout Sharing**
+  - Generate screenshot of workout with weights/times
+  - Share to Instagram, WhatsApp, Facebook
+  - Styled cards with branding
+  - Include plate calculations in share image
+
+### Priority 2: Progress & Motivation
+- [ ] **Calendar View**
+  - Monthly calendar showing workout/PR dates
+  - Tap date to see what you did
+  - Streak tracking (consecutive days)
+  - Heat map visualization
+
+- [ ] **Achievements & Goals**
+  - Unlock badges for milestones
+  - Custom goal setting (e.g., "300lb squat by December")
+  - Progress bars for goals
+  - Workout streak counter
+  - Total weight lifted tracker
+
+- [ ] **Training Notes**
+  - Add comments to each workout session
+  - Rate how you felt (1-5 stars)
+  - Note observations, energy levels
+  - Video/photo attachments for form check
+
+### Priority 3: Data & Sync
+- [ ] **Cloud Backup**
+  - Automatic backups to iCloud (iOS)
+  - Automatic backups to Google Drive (Android)
+  - Periodic auto-export (daily/weekly)
+  - Version history (restore previous backups)
+
+- [ ] **Multi-Language Support**
+  - English translation
+  - Portuguese translation
+  - Configurable language setting
+  - Date/number formatting per locale
+
+### Priority 4: Advanced Features
+- [ ] **Exercise Library**
+  - Pre-populated common exercises
+  - Exercise descriptions and tips
+  - Video tutorials (embedded or links)
+  - Search and filter by muscle group
+
+- [ ] **1RM Calculator**
+  - Calculate 1 rep max from submaximal lifts
+  - Multiple formulas (Epley, Brzycki, etc.)
+  - Training percentage recommendations
+
+- [ ] **Body Measurements**
+  - Track weight, body fat percentage
+  - Progress photos
+  - Measurement history charts
+
+- [ ] **Social Features** (Optional)
+  - Share PRs with friends
+  - Leaderboards (private groups)
+  - Challenge friends to goals
+
+---
+
+## 📱 MOBILE APP RELEASE PLAN
+
+### Android Release
+**Timeline**: 2-3 weeks after PWA launch
+**Cost**: $25 one-time fee (Google Play Store)
+
+Steps:
+1. Build Android APK: `npx expo build:android`
+2. Test on physical devices
+3. Create Play Store listing (screenshots, description)
+4. Submit for review
+5. Publish to Google Play Store
+
+### iOS Release
+**Timeline**: TBD (depends on budget/demand)
+**Cost**: $99/year (Apple Developer Program)
+
+Requirements:
+- Mac computer for building
+- Apple Developer account
+- App Store review (7-10 days)
+- TestFlight beta testing
+
+Decision factors:
+- Wait for user feedback on PWA/Android
+- Assess if $99/year is justified by user base
+- Consider donations/support before investing
+
+---
+
+## 🔧 TECHNICAL IMPROVEMENTS
+
+### Performance
+- [ ] Implement React.memo for expensive components
+- [ ] Virtualize long lists (FlatList optimization)
+- [ ] Lazy load history charts
+- [ ] Code splitting for web build
+- [ ] Image optimization for PWA assets
+
+### Code Quality
+- [ ] Add ESLint configuration
+- [ ] Add Prettier for code formatting
+- [ ] Write unit tests (Jest + React Testing Library)
+- [ ] Add integration tests for critical flows
+- [ ] Set up CI/CD pipeline (GitHub Actions)
+
+### Developer Experience
+- [ ] Add Storybook for component development
+- [ ] Create contribution guidelines
+- [ ] Add code comments and documentation
+- [ ] Set up issue templates
+- [ ] Create pull request template
+
+---
+
+## 🎨 UI/UX ENHANCEMENTS
+
+### Known Issues
+- [ ] Safari theme-color meta tag not working (low priority)
+- [ ] Test on more devices/screen sizes
+- [ ] Improve accessibility (screen reader support)
+- [ ] Add keyboard shortcuts for power users
+
+### Future Improvements
+- [ ] Animation polish (page transitions, etc.)
+- [ ] Haptic feedback on mobile
+- [ ] Swipe gestures for navigation
+- [ ] Customizable card layout
+- [ ] More theme color options
+
+---
+
+## 🐛 KNOWN LIMITATIONS
+
+### Current Constraints
+1. **No backend** - All data local only (by design)
+2. **No real-time sync** - Must manually export/import between devices
+3. **No social features** - Privacy-focused, single-user app
+4. **Safari theme color** - iOS Safari doesn't respect theme-color changes dynamically
+
+### Technical Debt
+- Consider migrating to TanStack Query for data management
+- Evaluate Zustand or Jotai instead of Context API (performance)
+- Add error boundary components
+- Improve TypeScript strict mode compliance
+
+---
+
+## 📊 ANALYTICS & METRICS (Optional Future)
+
+If user base grows, consider privacy-respecting analytics:
+- [ ] Plausible Analytics (privacy-focused, GDPR compliant)
+- [ ] Anonymous usage statistics (opt-in only)
+- [ ] Crash reporting (Sentry or similar)
+
+Important: Maintain privacy-first approach. Always opt-in, never track without consent.
+
+---
+
+## 💰 MONETIZATION OPTIONS (Future Consideration)
+
+Current: 100% free, donation-based
+
+Potential future models (if development continues):
+1. **Keep free forever** + donations (current model)
+2. **Freemium**: Advanced features require one-time payment ($4.99)
+   - Training plans
+   - Cloud sync
+   - Advanced analytics
+3. **Premium version**: Separate "Pro" version on app stores
+4. **Coaching features**: Paid add-on for personal trainers
+
+Decision: Wait for user feedback before considering paid features.
+
+---
+
+## 🔄 MIGRATION & UPDATES
+
+### Changing App Name Later
+Files to update:
+1. `app.json` - "name" and "slug" fields
+2. `dist/manifest.json` - "name" and "short_name"
+3. `App.tsx` - NavigationContainer documentTitle
+4. `package.json` - "name" field
+5. `README.md` - All references
+
+Deployment impact:
+- Vercel: Project name can be changed in settings
+- Domain: Add custom domain anytime (no code changes)
+- Git: Rename repo on GitHub, update remote URL
+
+### Custom Domain Setup
+1. Buy domain (Namecheap, Cloudflare, Google Domains)
+2. Add to Vercel: Settings → Domains → Add
+3. Update DNS records (Vercel provides instructions)
+4. HTTPS automatic (Vercel handles SSL certificates)
+
+No app code changes needed for custom domain!
+
+---
+
+## 🎯 SUCCESS METRICS
+
+How to measure success:
+- [ ] 100+ PWA installs in first month
+- [ ] Positive user feedback (GitHub stars, reviews)
+- [ ] Low bug reports / high stability
+- [ ] At least 3 donations supporting development
+- [ ] Community contributions (pull requests)
+
+If metrics hit, consider:
+- Android release
+- Advanced features from roadmap
+- Possible iOS release
+
+---
+
+## 📝 DEVELOPMENT WORKFLOW
+
+### Making Changes
+1. Create feature branch: `git checkout -b feature/new-feature`
+2. Make changes and test locally: `npm run web`
+3. Commit with clear messages: `git commit -m "feat: add workout timer"`
+4. Push and create PR: `git push origin feature/new-feature`
+5. Vercel auto-deploys preview URL for testing
+6. Merge to main when ready → auto-deploys to production
+
+### Release Process
+1. Update version in `package.json`
+2. Update CHANGELOG.md with changes
+3. Tag release: `git tag v1.1.0`
+4. Push tag: `git push --tags`
+5. GitHub release with notes
+6. Announce on social media / to users
+
+---
+
+## 🆘 TROUBLESHOOTING GUIDE
+
+### Common Issues
+
+**Issue**: PWA not updating after changes
+**Fix**: Hard refresh (Cmd+Shift+R on Mac, Ctrl+Shift+R on Windows)
+
+**Issue**: Data not persisting
+**Fix**: Check browser storage settings, ensure localStorage enabled
+
+**Issue**: Import fails with error
+**Fix**: Validate JSON structure, check for corruption
+
+**Issue**: Docker container won't start
+**Fix**: Check port 3000 not in use: `lsof -i :3000`
+
+**Issue**: Vercel build fails
+**Fix**: Check build logs, ensure `dist/` folder created
+
+---
+
+## 📚 RESOURCES & DOCUMENTATION
+
+### Official Docs
+- [Expo Documentation](https://docs.expo.dev)
+- [React Native Documentation](https://reactnative.dev)
+- [React Navigation](https://reactnavigation.org)
+- [Vercel Deployment](https://vercel.com/docs)
+
+### Useful Tools
+- [Expo Snack](https://snack.expo.dev) - Online React Native playground
+- [TypeScript Playground](https://www.typescriptlang.org/play)
+- [Can I Use](https://caniuse.com) - Browser compatibility checker
+- [PWA Builder](https://www.pwabuilder.com) - PWA testing tools
+
+---
+
+## 🎓 LEARNING RESOURCES
+
+If picking this up later and need refreshers:
+- React Native: https://reactnative.dev/docs/tutorial
+- TypeScript: https://www.typescriptlang.org/docs/handbook/intro.html
+- Expo: https://docs.expo.dev/tutorial/introduction/
+- Docker: https://docs.docker.com/get-started/
+
+---
+
+## 🤔 DECISION LOG
+
+Key architectural decisions made:
+1. **No backend** - Privacy and offline-first approach
+2. **React Native + Expo** - Cross-platform code reuse
+3. **AsyncStorage** - Simple local storage, no DB overhead
+4. **Context API** - Lightweight state management, avoid Redux complexity
+5. **PWA first** - Fastest path to market, lowest barrier to entry
+6. **Vercel hosting** - Free, reliable, great DX
+7. **Donation model** - Keep free, optional support
+
+---
+
+## 📞 CONTACT & SUPPORT
+
+### When Resuming Development in New Claude Session:
+
+**Step 1**: Provide context immediately:
+```
+"I'm continuing development on a CrossFit PR tracker app.
+Please read NEXT_STEPS.txt, README.md, and CLAUDE.md for full context.
+Current version is 1.0.0 - PWA is complete, Docker is running, ready for Vercel deploy."
+```
+
+**Step 2**: Let Claude read these files:
+1. NEXT_STEPS.txt (this file) - Roadmap and context
+2. README.md - Documentation and setup
+3. DEPLOYMENT.md - Deployment instructions
+4. CLAUDE.md - Project-specific guidelines
+5. package.json - Current dependencies
+
+**Step 3**: Verify current state:
+```bash
+npm run web                    # Should start on port 8081
+docker compose ps              # Check if running
+curl http://localhost:3000     # Test Docker container
+```
+
+### Quick Context for Claude:
+
+**What this app is:**
+- CrossFit Personal Records (PR) tracker
+- 100% offline-first Progressive Web App
+- Privacy-focused: no accounts, no servers, no tracking
+- Built with: React Native + Expo SDK 53 + TypeScript
+- Data storage: AsyncStorage (localStorage on web)
+- Navigation: React Navigation (bottom tabs)
+- State: React Context API
+
+**Current state:**
+- ✅ All core features complete (v1.0.0)
+- ✅ PWA build in dist/ folder ready
+- ✅ Docker container running on localhost:3000
+- ✅ Vercel config files ready for deployment
+- ✅ Empty states, loading indicators, validation implemented
+- ✅ Welcome screen for first-time users
+- ✅ Dark/Light themes with 5 color options
+- ✅ Export/Import data as JSON backups
+
+**What's next:**
+1. Deploy to Vercel (files ready, just need to push to GitHub)
+2. Optional: Build Android APK ($25 to publish on Play Store)
+3. Optional: Build iOS app ($99/year for App Store)
+4. See "UPCOMING FEATURES" section above for roadmap
+
+**File structure:**
+```
+src/
+├── components/       # PRCard, CustomHeader
+├── context/          # PRContext (state management)
+├── screens/          # PRListScreen, ExercisesScreen, HistoryScreen, SettingsScreen, WelcomeScreen
+├── theme/            # Dark/Light themes
+├── types/            # TypeScript definitions
+└── utils/            # plateCalculator
+
+Config files:
+├── app.json          # Expo configuration
+├── Dockerfile        # Docker image config
+├── docker-compose.yml # Docker orchestration
+├── vercel.json       # Vercel deployment config
+├── nginx.conf        # Nginx web server config
+└── package.json      # Dependencies
+```
+
+**Common tasks:**
+```bash
+# Development
+npm start             # Start Expo dev server
+npm run web           # Web browser dev
+npm run android       # Android emulator
+npm run ios           # iOS simulator
+
+# Production
+npx expo export --platform web    # Build for web/PWA
+docker build -t pr-tracker .      # Build Docker image
+docker compose up -d              # Start container
+vercel --prod                     # Deploy to Vercel
+
+# Cleanup (before GitHub push)
+rm -rf node_modules .expo dist
+npm install
+npx expo export --platform web
+```
+
+**Known issues:**
+- Safari theme-color doesn't update dynamically (low priority, works when installed as PWA)
+- Docker compose shows version warning (cosmetic, works fine)
+
+**Tech debt:**
+- Consider migrating to Zustand for state (performance)
+- Add tests (Jest + React Testing Library)
+- Add ESLint/Prettier configs
+- Improve TypeScript strict mode compliance
+
+---
+
+**Last Updated**: 2025-10-16
+**Current Version**: 1.0.0
+**Status**: Production Ready - PWA built, Docker running, Vercel config ready
+**Next Action**: Clean up project folder, push to GitHub, deploy to Vercel

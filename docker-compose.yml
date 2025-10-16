@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  crossfit-pr-tracker:
+    build: .
+    container_name: crossfit-pr-tracker
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    networks:
+      - pr-tracker-network
+
+networks:
+  pr-tracker-network:
+    driver: bridge

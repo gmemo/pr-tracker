@@ -5,11 +5,17 @@ node_modules/
 
 # Expo
 .expo/
+.expo-shared/
 dist/
 web-build/
 expo-env.d.ts
 
-# Native
+# Native (iOS/Android builds)
+ios/build/
+ios/Pods/
+ios/*.xcworkspace
+android/app/build/
+android/.gradle/
 .kotlin/
 *.orig.*
 *.jks
@@ -25,6 +31,7 @@ expo-env.d.ts
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+*.log
 
 # macOS
 .DS_Store
@@ -35,3 +42,12 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker (don't ignore, but could be added if needed)
+# docker-compose.override.yml
