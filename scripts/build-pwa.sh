@@ -14,6 +14,7 @@ cp public/manifest.json dist/
 cp public/icon-192.png dist/
 cp public/icon-512.png dist/
 cp public/apple-touch-icon.png dist/
+cp public/service-worker.js dist/
 
 # Step 3: Update index.html to include PWA meta tags
 node scripts/inject-pwa-meta.js
