@@ -9,18 +9,20 @@
 3. **Quick summary**: "This is a React Native/Expo CrossFit PR tracker PWA. See NEXT_STEPS.txt for full context."
 
 **Current State** (as of 2025-10-16):
-- ✅ PWA fully functional and deployed
-- ✅ Docker container running on localhost:3000
-- ✅ Vercel config ready for deployment
+- ✅ PWA fully functional and deployed on Vercel
+- ✅ GitHub repository: https://github.com/gmemo/pr-tracker
+- ✅ Vercel deployment: Live and auto-deploying on git push
 - ✅ All core features complete (v1.0.0)
-- 🚀 Ready for: Vercel deploy, Android build, iOS build (when funded)
+- ✅ PWA manifest and icons properly configured
+- ✅ Docker config preserved in repo (container removed to save resources)
+- 🚀 Ready for: Android build, iOS build (when funded)
 
 **What to do first in new session:**
 ```bash
 # Check current state
-npm run web                    # Start dev server
-docker compose ps              # Check if container is running
+npm run web                    # Start dev server (port 8081)
 git status                     # See what's uncommitted
+git log --oneline -5           # See recent commits
 ```
 
 ---
@@ -99,14 +101,17 @@ rm -rf dist
 # 2. Fresh install
 npm install
 
-# 3. Fresh build
-npx expo export --platform web
+# 3. Build PWA with proper manifest and icons
+npm run build:web
 
-# 4. Test Docker build
+# 4. (Optional) Test Docker build if needed
 docker build -t pr-tracker .
 docker compose up -d
+# Verify at http://localhost:3000
 
-# 5. Verify at http://localhost:3000
+# 5. (Optional) Clean up Docker when done
+docker compose down
+docker rmi pr-tracker
 ```
 
 ---
@@ -139,6 +144,97 @@ docker compose up -d
 - [x] Platform-specific rendering (web vs native)
 - [x] Docker containerization
 - [x] Vercel deployment configuration
+- [x] PWA manifest and icons (192x192, 512x512, apple-touch-icon)
+- [x] Automated build script (scripts/build-pwa.sh)
+
+---
+
+## 🏗️ BUILD & DEPLOYMENT WORKFLOW
+
+### **Building the PWA** (IMPORTANT!)
+
+Always use this command to build for production:
+```bash
+npm run build:web
+```
+
+**What this does:**
+1. Runs `npx expo export --platform web` to build the app
+2. Copies PWA assets from `public/` to `dist/`:
+   - `manifest.json` - PWA configuration
+   - `icon-192.png` and `icon-512.png` - App icons
+   - `apple-touch-icon.png` - iOS home screen icon
+3. Updates `dist/index.html` with proper manifest and icon links
+
+**DO NOT use** `npx expo export --platform web` directly - it won't include PWA assets!
+
+### **PWA Assets Location**
+
+All PWA assets are in the `public/` folder:
+- `public/manifest.json` - PWA config (name, colors, display mode)
+- `public/icon-192.png` - 192×192 icon for Android
+- `public/icon-512.png` - 512×512 icon for high-res displays
+- `public/apple-touch-icon.png` - 180×180 icon for iOS
+- `public/favicon.png` - Browser tab icon
+
+These are automatically copied to `dist/` during build.
+
+### **Deployment to Vercel**
+
+**Automatic deployment:**
+```bash
+# Make changes to your code
+git add .
+git commit -m "your message"
+git push
+
+# Vercel automatically detects push and deploys!
+# Wait 2-3 minutes, then check your Vercel URL
+```
+
+**Manual deployment via CLI:**
+```bash
+# Install Vercel CLI (first time only)
+npm install -g vercel
+
+# Deploy to production
+vercel --prod
+```
+
+**Build settings (already configured in vercel.json):**
+- Build Command: `npm run build:web`
+- Output Directory: `dist`
+- Framework: None (custom)
+
+### **Docker Deployment (Optional)**
+
+Docker container has been **removed to save resources**, but config is preserved in repo.
+
+To run Docker locally again:
+```bash
+# Build and start
+npm run build:web
+docker build -t pr-tracker .
+docker compose up -d
+
+# Access at http://localhost:3000
+
+# Stop and clean up when done
+docker compose down
+docker rmi pr-tracker
+```
+
+**When to use Docker:**
+- Testing local deployment
+- Self-hosting on your own server
+- Sharing with users on local network
+- Development environments
+
+**Why we removed it:**
+- Vercel handles public deployment (better!)
+- Saves disk space (~5-10 MB)
+- No need to rebuild container for every change
+- Can easily rebuild when needed
 
 ---
 
@@ -466,7 +562,7 @@ Key architectural decisions made:
 ```
 "I'm continuing development on a CrossFit PR tracker app.
 Please read NEXT_STEPS.txt, README.md, and CLAUDE.md for full context.
-Current version is 1.0.0 - PWA is complete, Docker is running, ready for Vercel deploy."
+Current version is 1.0.0 - PWA is complete and deployed on Vercel."
 ```
 
 **Step 2**: Let Claude read these files:
@@ -478,9 +574,9 @@ Current version is 1.0.0 - PWA is complete, Docker is running, ready for Vercel 
 
 **Step 3**: Verify current state:
 ```bash
-npm run web                    # Should start on port 8081
-docker compose ps              # Check if running
-curl http://localhost:3000     # Test Docker container
+npm run web                    # Should start dev server on port 8081
+git status                     # Check for uncommitted changes
+git log --oneline -5           # See recent commits
 ```
 
 ### Quick Context for Claude:
@@ -496,19 +592,21 @@ curl http://localhost:3000     # Test Docker container
 
 **Current state:**
 - ✅ All core features complete (v1.0.0)
-- ✅ PWA build in dist/ folder ready
-- ✅ Docker container running on localhost:3000
-- ✅ Vercel config files ready for deployment
+- ✅ PWA deployed on Vercel and live
+- ✅ GitHub repo: https://github.com/gmemo/pr-tracker
+- ✅ Auto-deployment configured (push to GitHub = deploy to Vercel)
+- ✅ PWA manifest and icons properly configured
 - ✅ Empty states, loading indicators, validation implemented
 - ✅ Welcome screen for first-time users
 - ✅ Dark/Light themes with 5 color options
 - ✅ Export/Import data as JSON backups
+- ✅ Docker config preserved (container removed to save resources)
 
 **What's next:**
-1. Deploy to Vercel (files ready, just need to push to GitHub)
-2. Optional: Build Android APK ($25 to publish on Play Store)
-3. Optional: Build iOS app ($99/year for App Store)
-4. See "UPCOMING FEATURES" section above for roadmap
+1. Optional: Build Android APK ($25 to publish on Play Store)
+2. Optional: Build iOS app ($99/year for App Store)
+3. Implement features from "UPCOMING FEATURES" section above
+4. Get user feedback and iterate
 
 **File structure:**
 ```
@@ -519,6 +617,16 @@ src/
 ├── theme/            # Dark/Light themes
 ├── types/            # TypeScript definitions
 └── utils/            # plateCalculator
+
+public/               # PWA assets (copied to dist/ during build)
+├── manifest.json     # PWA configuration
+├── icon-192.png      # 192×192 app icon
+├── icon-512.png      # 512×512 app icon
+├── apple-touch-icon.png  # iOS home screen icon
+└── favicon.png       # Browser tab icon
+
+scripts/
+└── build-pwa.sh      # Automated PWA build script
 
 Config files:
 ├── app.json          # Expo configuration
@@ -532,21 +640,30 @@ Config files:
 **Common tasks:**
 ```bash
 # Development
-npm start             # Start Expo dev server
-npm run web           # Web browser dev
+npm start             # Start Expo dev server (choose platform)
+npm run web           # Web browser dev (port 8081)
 npm run android       # Android emulator
 npm run ios           # iOS simulator
 
-# Production
-npx expo export --platform web    # Build for web/PWA
-docker build -t pr-tracker .      # Build Docker image
-docker compose up -d              # Start container
-vercel --prod                     # Deploy to Vercel
+# Production Build (IMPORTANT: Use this!)
+npm run build:web     # Build PWA with manifest and icons
 
-# Cleanup (before GitHub push)
+# Deployment
+git add .
+git commit -m "your message"
+git push              # Auto-deploys to Vercel (wait 2-3 min)
+
+# Docker (Optional - for local testing or self-hosting)
+npm run build:web
+docker build -t pr-tracker .      # Build Docker image
+docker compose up -d              # Start container on port 3000
+docker compose down               # Stop container
+docker rmi pr-tracker             # Remove image
+
+# Cleanup
 rm -rf node_modules .expo dist
 npm install
-npx expo export --platform web
+npm run build:web
 ```
 
 **Known issues:**
@@ -563,5 +680,7 @@ npx expo export --platform web
 
 **Last Updated**: 2025-10-16
 **Current Version**: 1.0.0
-**Status**: Production Ready - PWA built, Docker running, Vercel config ready
-**Next Action**: Clean up project folder, push to GitHub, deploy to Vercel
+**Status**: ✅ DEPLOYED TO PRODUCTION
+**Live URL**: Check your Vercel dashboard for the live URL
+**GitHub**: https://github.com/gmemo/pr-tracker
+**Next Action**: Implement features from roadmap, get user feedback, iterate on improvements
