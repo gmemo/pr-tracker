@@ -14,7 +14,9 @@ let html = fs.readFileSync(indexPath, 'utf8');
 const pwaTags = `
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#0A0A0A" />`;
+    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />`;
 
 // Inject after the title tag
 html = html.replace(

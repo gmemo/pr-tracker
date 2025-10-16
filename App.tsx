@@ -43,23 +43,25 @@ function AppContent() {
     if (Platform.OS === 'web' && typeof document !== 'undefined') {
       // Small delay to ensure DOM is fully ready
       const timer = setTimeout(() => {
-        // Update theme-color meta tag
+        // Update theme-color meta tag (controls status bar background color)
         let metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-          metaThemeColor.setAttribute('content', theme.surface);
-          console.log('✅ Updated theme-color to:', theme.surface);
+          metaThemeColor.setAttribute('content', theme.background);
+          console.log('✅ Updated theme-color to:', theme.background);
         } else {
           // Create if doesn't exist
           metaThemeColor = document.createElement('meta');
           metaThemeColor.name = 'theme-color';
-          metaThemeColor.content = theme.surface;
+          metaThemeColor.content = theme.background;
           document.head.appendChild(metaThemeColor);
-          console.log('✅ Created theme-color meta tag:', theme.surface);
+          console.log('✅ Created theme-color meta tag:', theme.background);
         }
 
-        // Update iOS status bar style
+        // Update iOS Safari status bar style (for PWA installed on home screen)
         let metaStatusBar = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-        const statusBarStyle = theme.mode === 'dark' ? 'black-translucent' : 'default';
+        // Use 'black' for dark mode (black background with white text)
+        // Use 'default' for light mode (white background with black text)
+        const statusBarStyle = theme.mode === 'dark' ? 'black' : 'default';
         if (metaStatusBar) {
           metaStatusBar.setAttribute('content', statusBarStyle);
         } else {
@@ -68,7 +70,7 @@ function AppContent() {
           metaStatusBar.content = statusBarStyle;
           document.head.appendChild(metaStatusBar);
         }
-        console.log('✅ iOS status bar style:', statusBarStyle);
+        console.log('✅ iOS status bar style:', statusBarStyle, '| Theme:', theme.mode);
 
         // Force Safari to repaint by touching body
         document.body.style.display = 'none';
@@ -78,7 +80,7 @@ function AppContent() {
 
       return () => clearTimeout(timer);
     }
-  }, [theme.surface, theme.mode]);
+  }, [theme.background, theme.mode]);
 
   const handleWelcomeComplete = async () => {
     try {
