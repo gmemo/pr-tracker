@@ -57,8 +57,12 @@ npm run android  # Android emulator
 ### Production Build
 
 ```bash
-# Build for web (PWA)
-npx expo export --platform web
+# Build for web (PWA) with proper manifest and icons
+npm run build:web
+
+# Or manually:
+# npx expo export --platform web
+# (Note: Manual export requires copying PWA assets from public/ folder)
 
 # Output will be in the dist/ folder
 ```
@@ -97,18 +101,20 @@ docker-compose logs -f
 1. Push your code to GitHub
 2. Import repository on [Vercel](https://vercel.com)
 3. Set build settings:
-   - **Build Command**: `npx expo export --platform web`
+   - **Build Command**: `npm run build:web`
    - **Output Directory**: `dist`
 4. Deploy!
 
 Your app will be available at `https://your-project.vercel.app`
+
+**Note**: The `vercel.json` file is already configured, so Vercel will auto-detect these settings.
 
 ### Cloudflare Pages
 
 1. Push your code to GitHub
 2. Connect repository on [Cloudflare Pages](https://pages.cloudflare.com)
 3. Set build settings:
-   - **Build Command**: `npx expo export --platform web`
+   - **Build Command**: `npm run build:web`
    - **Build Output Directory**: `dist`
 4. Deploy!
 
