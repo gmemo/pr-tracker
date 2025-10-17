@@ -42,10 +42,8 @@ export default function ExercisesScreen() {
   ];
 
   const barTypes = [
-    { value: 'standard', label: 'Estándar (20kg/45lbs)' },
-    { value: 'women', label: 'Mujeres (15kg/35lbs)' },
-    { value: 'training', label: 'Entrenamiento (15kg/35lbs)' },
-    { value: 'none', label: 'Sin barra' },
+    { value: 'standard', label: '45 lb', fullLabel: 'Estándar (45 lbs)' },
+    { value: 'women', label: '35 lb', fullLabel: 'Mujeres (35 lbs)' },
   ];
 
   const units = [
@@ -280,7 +278,14 @@ export default function ExercisesScreen() {
                         { backgroundColor: theme.surfaceLight, borderColor: theme.border },
                         formData.category === cat.value && { backgroundColor: theme.primary, borderColor: theme.primary },
                       ]}
-                      onPress={() => setFormData({ ...formData, category: cat.value as Exercise['category'] })}
+                      onPress={() => {
+                        const newCategory = cat.value as Exercise['category'];
+                        setFormData({
+                          ...formData,
+                          category: newCategory,
+                          barType: newCategory === 'barbell' ? 'standard' : 'none'
+                        });
+                      }}
                     >
                       <Ionicons
                         name={cat.icon as any}
@@ -303,29 +308,31 @@ export default function ExercisesScreen() {
 
               {formData.category === 'barbell' && (
                 <View style={styles.formGroup}>
-                  <Text style={[styles.label, { color: theme.text }]}>Tipo de barra</Text>
-                  <View style={styles.optionsContainer}>
-                    {barTypes.map((bar) => (
-                      <TouchableOpacity
-                        key={bar.value}
-                        style={[
-                          styles.optionButton,
-                          { backgroundColor: theme.surfaceLight, borderColor: theme.border },
-                          formData.barType === bar.value && { backgroundColor: theme.primary, borderColor: theme.primary },
-                        ]}
-                        onPress={() => setFormData({ ...formData, barType: bar.value as Exercise['barType'] })}
-                      >
-                        <Text
+                  <View style={styles.barRow}>
+                    <Text style={[styles.barRowLabel, { color: theme.text }]}>Barra:</Text>
+                    <View style={styles.barOptionsInline}>
+                      {barTypes.map((bar) => (
+                        <TouchableOpacity
+                          key={bar.value}
                           style={[
-                            styles.optionText,
-                            { color: theme.text },
-                            formData.barType === bar.value && { color: theme.background },
+                            styles.barButtonInline,
+                            { backgroundColor: theme.surfaceLight, borderColor: theme.border },
+                            formData.barType === bar.value && { backgroundColor: theme.primary, borderColor: theme.primary },
                           ]}
+                          onPress={() => setFormData({ ...formData, barType: bar.value as Exercise['barType'] })}
                         >
-                          {bar.label}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
+                          <Text
+                            style={[
+                              styles.barButtonText,
+                              { color: theme.text },
+                              formData.barType === bar.value && { color: theme.background },
+                            ]}
+                          >
+                            {bar.label}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
                   </View>
                 </View>
               )}
@@ -376,6 +383,11 @@ export default function ExercisesScreen() {
                 {errors.currentPR ? (
                   <Text style={styles.errorText}>{errors.currentPR}</Text>
                 ) : null}
+                {formData.category === 'barbell' && formData.barType && (
+                  <Text style={[styles.helperText, { color: theme.textSecondary }]}>
+                    💡 Peso total incluyendo la barra. Ejemplo: 50 lbs = 25 lbs por lado + barra de {formData.barType === 'standard' ? '45' : '35'} lbs
+                  </Text>
+                )}
               </View>
 
               {/* Buttons at the bottom inside ScrollView */}
@@ -558,5 +570,37 @@ const styles = StyleSheet.create({
   buttonSaveText: {
     fontSize: 16,
     fontWeight: '600',
+  },
+  barRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  barRowLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    minWidth: 50,
+  },
+  barOptionsInline: {
+    flexDirection: 'row',
+    gap: 8,
+    flex: 1,
+  },
+  barButtonInline: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  barButtonText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  helperText: {
+    fontSize: 13,
+    marginTop: 8,
+    lineHeight: 18,
   },
 });
